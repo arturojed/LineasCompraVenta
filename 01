@@ -1,0 +1,96 @@
+//+------------------------------------------------------------------+
+//|                                                           01.mq5 |
+//|                                       Copyright 2024, HuntersFX  |
+//|                                    https://t.me/huntersfxtrading |
+//|                                       huntersfxtrading@gmail.com |
+//+------------------------------------------------------------------+
+#property copyright "Hunters FX"
+#property link      "https://t.me/huntersfxtrading"
+#property version   "1.00"
+
+//Inclusion de libreria
+#include <Trade\Trade.mqh>
+
+//Definiciones para los precios ASK y BID
+#define ASK  NormalizeDouble(SymbolInfoDouble(Symbol(), SYMBOL_ASK), Digits())
+#define BID  NormalizeDouble(SymbolInfoDouble(Symbol(), SYMBOL_BID), Digits())
+
+//Definiendo nombre de Lineas
+input string NameLineBuy1 = "LineaC1";
+input string NameLineBuy2 = "LineaC2";
+input string NameLineBuy3 = "LineaC3";
+
+input string NameLineSell1 = "LineaV1";
+input string NameLineSell2 = "LineaV2";
+input string NameLineSell3 = "LineaV3";
+
+//Definiendo Tamaño de Lotes
+input double LotZise1 = 0.01;
+input double LotZise2 = 0.02;
+input double LotZise3 = 0.03;
+
+CTrade Trade;
+
+//+------------------------------------------------------------------+
+//| Expert initialization function                                   |
+//+------------------------------------------------------------------+
+int OnInit()
+  {
+
+   return(INIT_SUCCEEDED);
+  }
+
+//+------------------------------------------------------------------+
+//| Expert tick function                                             |
+//+------------------------------------------------------------------+
+void OnTick()
+  {
+      double vl_PriceLineBuy1 = ObjectGetDouble(0, NameLineBuy1, OBJPROP_PRICE);
+      double vl_PriceLineBuy2 = ObjectGetDouble(0, NameLineBuy2, OBJPROP_PRICE);
+      double vl_PriceLineBuy3 = ObjectGetDouble(0, NameLineBuy3, OBJPROP_PRICE);
+      
+      double vl_PriceLineSell1 = ObjectGetDouble(0, NameLineSell1, OBJPROP_PRICE);
+      double vl_PriceLineSell2 = ObjectGetDouble(0, NameLineSell2, OBJPROP_PRICE);
+      double vl_PriceLineSell3 = ObjectGetDouble(0, NameLineSell3, OBJPROP_PRICE);
+      
+      
+      
+      if(vl_PriceLineBuy1 !=0 && BID <= vl_PriceLineBuy1) 
+      {   
+         Trade.Buy(LotZise1, _Symbol, ASK);
+         ObjectDelete(0, NameLineBuy1);
+      }
+      
+      if(vl_PriceLineBuy2 !=0 && BID <= vl_PriceLineBuy2) 
+      {   
+         Trade.Buy(LotZise2, _Symbol, ASK);
+         ObjectDelete(0, NameLineBuy2);
+      }
+
+      if(vl_PriceLineBuy3 !=0 && BID <= vl_PriceLineBuy3) 
+      {   
+         Trade.Buy(LotZise3, _Symbol, ASK);
+         ObjectDelete(0, NameLineBuy3);
+      }
+      
+      
+      if(vl_PriceLineSell1 !=0 && ASK >= vl_PriceLineSell1) 
+      {
+         Trade.Sell(LotZise1, _Symbol, BID);
+         ObjectDelete(0, NameLineSell1);
+      }
+      
+      if(vl_PriceLineSell2 !=0 && ASK >= vl_PriceLineSell2) 
+      {
+         Trade.Sell(LotZise2, _Symbol, BID);
+         ObjectDelete(0, NameLineSell2);
+      }
+      
+      if(vl_PriceLineSell3 !=0 && ASK >= vl_PriceLineSell3) 
+      {
+         Trade.Sell(LotZise3, _Symbol, BID);
+         ObjectDelete(0, NameLineSell3);
+      }
+      
+  }
+//+------------------------------------------------------------------+
