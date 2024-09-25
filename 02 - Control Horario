@@ -8,7 +8,6 @@
 #property link      "https://t.me/huntersfxtrading"
 #property version   "1.00"
 
-
 input group "Horario 1" 
 input int Inp_hStart = 8;     //Hora Inicio
 input int Inp_mStart = 30;    //Minuto Inicio
@@ -37,19 +36,10 @@ bool ControlHorario()
 //+------------------------------------------------------------------+
 int OnInit()
   {
-//---
-   
-//---
    return(INIT_SUCCEEDED);
   }
-//+------------------------------------------------------------------+
-//| Expert deinitialization function                                 |
-//+------------------------------------------------------------------+
-void OnDeinit(const int reason)
-  {
-//---
-   
-  }
+
+
 //+------------------------------------------------------------------+
 //| Expert tick function                                             |
 //+------------------------------------------------------------------+
