@@ -1,0 +1,64 @@
+//+------------------------------------------------------------------+
+//|                                                           01.mq5 |
+//|                                       Copyright 2024, HuntersFX  |
+//|                                    https://t.me/huntersfxtrading |
+//|                                       huntersfxtrading@gmail.com |
+//+------------------------------------------------------------------+
+#property copyright "Hunters FX"
+#property link      "https://t.me/huntersfxtrading"
+#property version   "1.00"
+
+
+input group "Horario 1" 
+input int Inp_hStart = 8;     //Hora Inicio
+input int Inp_mStart = 30;    //Minuto Inicio
+input int Inp_hEnd   = 13;    //Hora Final
+input int Inp_mEnd   = 0;     //Minuto Final
+
+bool ControlHorario()
+{
+   // Obtener la hora y minuto actual del sistema
+   MqlDateTime currentTime;
+   TimeToStruct(TimeLocal(), currentTime);
+   int currentHour   = currentTime.hour;
+   int currentMinute = currentTime.min;
+   
+   // Verificar si estamos dentro del horario establecido
+   if((currentHour > Inp_hStart || (currentHour == Inp_hStart && currentMinute >= Inp_mStart)) &&
+      (currentHour < Inp_hEnd || (currentHour == Inp_hEnd && currentMinute < Inp_mEnd)))
+   {
+        return true; 
+   }
+    
+   return false; 
+
+//+------------------------------------------------------------------+
+//| Expert initialization function                                   |
+//+------------------------------------------------------------------+
+int OnInit()
+  {
+//---
+   
+//---
+   return(INIT_SUCCEEDED);
+  }
+//+------------------------------------------------------------------+
+//| Expert deinitialization function                                 |
+//+------------------------------------------------------------------+
+void OnDeinit(const int reason)
+  {
+//---
+   
+  }
+//+------------------------------------------------------------------+
+//| Expert tick function                                             |
+//+------------------------------------------------------------------+
+void OnTick()
+  {
+      if(ControlHorario())
+      {
+         Print("Aqui se ejecuta el codigo en el horario permitido");
+      }
+   
+  }
+//+------------------------------------------------------------------+
